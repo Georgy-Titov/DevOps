@@ -18,7 +18,7 @@
 
 * После установки проверяем статус работы NGINX при помощи команды `sudo systemctl status nginx`.
 
-![image](https://github.com/user-attachments/assets/2a38f77b-d054-4eff-9204-f83045fd9254)
+![image](https://github.com/user-attachments/assets/4ae205bc-487d-40c9-86d0-58124e953f50)
 
 
 * Если статус **inactive (dead)**, запустите NGINX вручную с помощью команды `sudo systemctl start nginx`.  
@@ -27,7 +27,7 @@
 * Чтобы возобновить автозапуск сервиса, введите `sudo systemctl enable nginx`.
 * Также проверим работу нашего NGINX с локального хоста.
 
-![image](https://github.com/user-attachments/assets/18bd9813-2e8d-4460-86a3-df35ac1ae686)
+![image](https://github.com/user-attachments/assets/c2d52b67-e381-4358-b391-69df4d27122c)
 
 
 ## Настройка виртуальных хостов
