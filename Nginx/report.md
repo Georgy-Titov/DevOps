@@ -42,8 +42,8 @@
 
 
 * Прежде чем создать виртуальный хост, нужно создать директорию для сайта, в которой будут размещены все необходимые файлы. По умолчанию в Ubuntu включен один виртуальный хост NGINX, который обслуживает документы из каталога `/var/www/html`. Чтобы добавить еще один домен, необходимо создать директорию в `/var/www`.
-* Создадим директории для наших сайтов при помощи команд `sudo mkdir -p /var/www/myfirstdomain/html` и `sudo mkdir -p /var/www/myseconddomain/html`. Контент для сайтов мы добавим чуть позже.
-* А теперь давайте перейдем к директории `/etc/nginx/sites-available`, где создадим файлы-конфигурвции для наших сайтов. При помощи команды `sudo nano /etc/nginx/sites-available/myfirstdomain.conf` создаем файл-конфигурацию для нашего сайта и сразу же настраиваем его. По аналогии проделываем те же операции для второго сайта.
+* Создадим директории для наших сайтов при помощи команд `sudo mkdir -p /var/www/dogs/html` и `sudo mkdir -p /var/www/cat/html`. Контент для сайтов мы добавим чуть позже.
+* А теперь давайте перейдем к директории `/etc/nginx/sites-available`, где создадим файлы-конфигурвции для наших сайтов. При помощи команды `sudo nano /etc/nginx/sites-available/dogs.conf` создаем файл-конфигурацию для нашего сайта и сразу же настраиваем его. По аналогии проделываем те же операции для второго сайта.
 
 ![image](https://github.com/user-attachments/assets/256c1507-5bdb-49ac-846c-6e7299b6af5a)
 
@@ -57,14 +57,44 @@
 
 ## Добавление контента
 
-* Создадим для наших сайтов **index.html** файлы при помощи команды `sudo nano /var/www/myfirstdomain/html/index.html` для первого сайта, `sudo nano /var/www/myseconddomain/html/index.html` - для второго. Пример верстки:
+* Создадим для наших сайтов **index.html** файлы при помощи команды `sudo nano /var/www/dogs/html/index.html` для первого сайта, `sudo nano /var/www/cats/html/index.html` - для второго. Пример верстки:
 ```
-<html>
-    <head>
-        <title>Hello world!</title>
-    </head>
-    <body>
-        <h1>Success!</h1>
-    </body>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Котики</title>
+    <style>
+        body {
+            background-color: #fff8f0;
+            font-family: monospace;
+            text-align: center;
+            padding-top: 30px;
+            color: #333;
+        }
+        pre {
+            font-size: 14px;
+            line-height: 1.1;
+        }
+    </style>
+</head>
+<body>
+    <h1>Добро пожаловать в мир котиков! </h1>
+    <pre>
+ /\     /\
+{  `---'  }
+{  O   O  }
+~~>  V  <~~
+ \  \|/  /
+  `-----'____
+  /     \    \_
+ {       }\  )_\_   _
+ |  \_/  |/ /  \_\_/ )
+  \__/  /(_/     \__/
+    (__/
+    </pre>
+    <p>Мяу! Здесь уютно, пушисто и спокойно </p>
+</body>
 </html>
+
 ```
