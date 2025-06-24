@@ -55,4 +55,16 @@
 
 ![image](https://github.com/user-attachments/assets/743fe1b8-3ec4-4e2b-aaa0-ba561af282b1)
 
+## Добавление контента
 
+* Создадим для наших сайтов **index.html** файлы при помощи команды `sudo nano /var/www/myfirstdomain/html/index.html` для первого сайта, `sudo nano /var/www/myseconddomain/html/index.html` - для второго. Пример верстки:
+```
+<html>
+    <head>
+        <title>Hello world!</title>
+    </head>
+    <body>
+        <h1>Success!</h1>
+    </body>
+</html>
+```
