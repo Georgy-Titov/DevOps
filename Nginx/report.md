@@ -123,7 +123,7 @@ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 * Активируем виртуальный хост - `sudo ln -s /etc/nginx/sites-available/dogs.conf /etc/nginx/sites-enabled/` (то же самое для второго сервера).
 * Проверяем конфигурацию - `sudo nginx -t`.
 * Если нет ошибок, то перезапускаем NGINX - `sudo systemctl reload nginx`.
-* Заходим в браузер и пробуем достучаться до сайта - `http://myfirstdomain`.
+* Заходим в браузер и пробуем достучаться до сайта - `http://cats.local`.
 * Если все работает, нас должно перебросить на https соединение.
 
 ![image](https://github.com/user-attachments/assets/bc60ee04-892a-448b-9aa9-4eb10bf04589)
