@@ -5,7 +5,7 @@
 - [Плохой Dockerfile](#плохой-dockerfile)
 - [Хороший Dockerfile](#хороший-dockerfile)
 - [Тестируем](#тестируем)
-- ["BAD PRACTICES" в работе с контейнерами]
+- ["BAD PRACTICES" в работе с контейнерами]("bad-practices"-в-работе-с-контейнерами)
 
 ## Задания: 
 
