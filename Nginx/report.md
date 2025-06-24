@@ -53,5 +53,6 @@
 
 * Давайте также для удобства тестирования сделаем следующее. Откроем файл `/etc/hosts` и присвоим нашим доменам IP-адресс локального хоста.
 
-![image](https://github.com/user-attachments/assets/9af238fd-9e02-4a58-b80c-db4af7234441)
+![image](https://github.com/user-attachments/assets/743fe1b8-3ec4-4e2b-aaa0-ba561af282b1)
+
 
