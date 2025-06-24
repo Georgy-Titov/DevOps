@@ -123,14 +123,10 @@ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 * Активируем виртуальный хост - `sudo ln -s /etc/nginx/sites-available/dogs.conf /etc/nginx/sites-enabled/` (то же самое для второго сервера).
 * Проверяем конфигурацию - `sudo nginx -t`.
 * Если нет ошибок, то перезапускаем NGINX - `sudo systemctl reload nginx`.
-
-![image](https://github.com/user-attachments/assets/1075391f-50ff-4c25-a3fb-4d977fba3838)
-
-
 * Заходим в браузер и пробуем достучаться до сайта - `http://myfirstdomain`.
 * Если все работает, нас должно перебросить на https соединение.
 
-![image](https://github.com/user-attachments/assets/0f0c6775-b2c6-4559-90e7-05ac45720de1)
+![image](https://github.com/user-attachments/assets/bc60ee04-892a-448b-9aa9-4eb10bf04589)
 
 
 ## Создаем псевдонимы путей к файлам (Alias)
