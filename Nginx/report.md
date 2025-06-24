@@ -110,17 +110,17 @@
 * Шаг 2 - Создаем самоподписный сертификат и приватный ключ. Описывать что значит каждый из параметров не видем смысла, поэтому остановимся на самых важных `-keyout` - куда сохраняем приватный ключ, `-out` - куда сохраняем сертификат.
 ```
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
-  -keyout /etc/ssl/private/myfirstdomain.key \
-  -out /etc/ssl/certs/myfirstdomain.crt
+  -keyout /etc/ssl/private/dogs.key \
+  -out /etc/ssl/certs/dogs.crt
 ```
 * Шаг 3 - вовзращаемся к файлу конфигуратору и прописываем пути к нашему ключу и сертификату.
 
-![image](https://github.com/user-attachments/assets/f42e0410-1ce7-4690-9b30-cc877b77eaec)
+![image](https://github.com/user-attachments/assets/e18e46d0-b9e0-4d5f-bbf5-a390d67ac8aa)
 
 
 ## Проверяем работу нашего веб-сервера
 
-* Активируем виртуальный хост - `sudo ln -s /etc/nginx/sites-available/myfirstdomain.conf /etc/nginx/sites-enabled/` (то же самое для второго сервера).
+* Активируем виртуальный хост - `sudo ln -s /etc/nginx/sites-available/dogs.conf /etc/nginx/sites-enabled/` (то же самое для второго сервера).
 * Проверяем конфигурацию - `sudo nginx -t`.
 * Если нет ошибок, то перезапускаем NGINX - `sudo systemctl reload nginx`.
 
