@@ -133,11 +133,11 @@ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 
 * Создадим дополнительные директории с ещё одним html файлом. Чтобы каждый раз не прописывать полный путь к нему, создадим alias. В новом блоке location определим сокращение нашего пути в директории с новым файлом.
 
-![image](https://github.com/user-attachments/assets/bc4875e9-879e-4da2-bcef-ef959ee54634)
+![image](https://github.com/user-attachments/assets/4d783f5b-1268-409a-a945-4c58da02c695)
 
 * Проверяем результат работы:
-
-![image](https://github.com/user-attachments/assets/3eaad216-a641-4cef-be99-b12da837608f)
+* 
+![image](https://github.com/user-attachments/assets/c4b0be10-4475-416b-bbce-027e311d20af)
 
 ## Что в итоге?
 
