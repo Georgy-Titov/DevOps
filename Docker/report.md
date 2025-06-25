@@ -44,7 +44,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 * Если при выполнении команд не возникло ошибок, то поздравляем - Docker успешно установлен!
 * На всякий случай проверим, что все работает, запустив приветствующий образ - `sudo docker run hello-world`.
 
-![Снимок экрана от 2024-10-13 22-07-45](https://github.com/user-attachments/assets/27b3eef3-b760-42c4-baa2-9d5513490b3d)
+![image](https://github.com/user-attachments/assets/a6e1c82c-75a6-45d1-b570-fe6dbfdb160e)
 
 ## Плохой Dockerfile
 
