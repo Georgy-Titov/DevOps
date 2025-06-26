@@ -3,7 +3,7 @@
 - [Задание](#задание)
 - [Теория](#теория)
 - [Устанвока инструментов](#установка-инструментов)
-- [Хороший Dockerfile](#хороший-dockerfile)
+- [Запуск кластера](#запуск-кластера)
 - [Тестируем](#тестируем)
 - ["BAD PRACTICES" в работе с контейнерами]("bad-practices"-в-работе-с-контейнерами)
 - [Выводы](#выводы)
@@ -82,6 +82,6 @@ sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-a
 
 ![image](https://github.com/user-attachments/assets/22eec222-6e1a-4924-ae63-5d553b30a984)
 
-
+## Запуск кластера
 
 
