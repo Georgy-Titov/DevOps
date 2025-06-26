@@ -50,6 +50,6 @@ Worker Node (Data plane):
 
 POD - это наименьшая и базовая единица развертывания. Он представляет собой абстракцию над одним или несколькими контейнерами, которые работают на одном узле, имеют общий сетевой стек (IP-адрес, порты), могут использовать общие тома (файловую систему), запускаются и управляются как единое целое.
 
-- [Источник](https://www.youtube.com/watch?v=klmpiHLSuXA&ab_channel=MerionAcademy)
+[Источник](https://www.youtube.com/watch?v=klmpiHLSuXA&ab_channel=MerionAcademy)
 
 > 
