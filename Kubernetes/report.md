@@ -59,8 +59,29 @@ POD - это наименьшая и базовая единица развер�
 
 * Подробнее ознакомиться с установкой можно [здесь](https://minikube.sigs.k8s.io/docs/start/?arch=%2Fwindows%2Fx86-64%2Fstable%2F.exe+download)(Minikube) и [здесь](https://kubernetes.io/docs/tasks/tools/)(kubectl). Мы же воспользуемся следующими командами:
 
-* Для установки kubectl
+* Для установки kubectl:
 
 ```
+sudo curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+
+chmod +x ./kubectl
+
+sudo mv ./kubectl /usr/local/bin/kubectl
+
+kubectl version --client
+```
+
+![image](https://github.com/user-attachments/assets/1a0db47f-c1b0-465b-8123-ade2f0638df5)
+
+* Для Minikube:
 
 ```
+curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
+```
+
+![image](https://github.com/user-attachments/assets/22eec222-6e1a-4924-ae63-5d553b30a984)
+
+
+
+
