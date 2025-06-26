@@ -1,0 +1,64 @@
+﻿# Установка кодировки
+chcp 1251
+
+# Функция для выбора сетевого адаптера
+function Select-NetworkAdapter {
+    $adapters = Get-NetAdapter | Where-Object { $_.Status -eq 'Up' }
+    if ($adapters.Count -eq 0) {
+        Write-Host "Нет доступных сетевых адаптеров." -ForegroundColor Red
+        exit
+    }
+    
+    Write-Host "Выберите сетевой адаптер"
+    for ($i = 0; $i -lt $adapters.Count; $i++) {
+        Write-Host "$i. $($adapters[$i].Name)"
+    }
+    
+    $selection = Read-Host "Введите номер адаптера"
+    return $adapters[$selection]
+}
+
+# Функция для настройки DHCP
+function Configure-DHCP {
+    $adapter = Select-NetworkAdapter
+    Write-Host "Настройка $($adapter.Name) через DHCP..."
+    Set-NetIPInterface -InterfaceAlias $adapter.Name -Dhcp Enabled
+    Set-DnsClientServerAddress -InterfaceAlias $adapter.Name -ResetServerAddresses
+    Write-Host "Настроено через DHCP!" -ForegroundColor Green
+}
+
+# Функция для настройки статического IP
+function Configure-Static {
+    $adapter = Select-NetworkAdapter
+    $ip = Read-Host "Введите статический IP-адрес"
+    $mask = Read-Host "Введите маску подсети"
+    $gateway = Read-Host "Введите шлюз"
+    $dns = Read-Host "Введите DNS-сервер (через запятую, если несколько)"
+    
+    Write-Host "Настройка $($adapter.Name) на статические параметры..."
+    New-NetIPAddress -InterfaceAlias $adapter.Name -IPAddress $ip -PrefixLength $mask -DefaultGateway $gateway
+    Set-DnsClientServerAddress -InterfaceAlias $adapter.Name -ServerAddresses ($dns -split ',')
+    Write-Host "Настроено статически!" -ForegroundColor Green
+}
+
+# Функция для получения информации об адаптере
+function Get-AdapterInfo {
+    $adapter = Select-NetworkAdapter
+    Write-Host "Модель адаптера: $($adapter.InterfaceDescription)"
+    Write-Host "Физическое подключение: $(if ($adapter.MediaConnectionState -eq 'Connected') {'Да'} else {'Нет'})"
+    Write-Host "Скорость: $($adapter.LinkSpeed)"
+    Write-Host "Дуплекс: $($adapter.FullDuplex)"
+}
+
+Write-Host "Выберите действие:" -ForegroundColor Cyan
+Write-Host "1. Настроить через DHCP"
+Write-Host "2. Настроить статически"
+Write-Host "3. Просмотреть параметры адаптера"
+$choice = Read-Host "Введите номер пункта"
+
+switch ($choice) {
+    "1" { Configure-DHCP }
+    "2" { Configure-Static }
+    "3" { Get-AdapterInfo }
+    default { Write-Host "Неверный выбор!" -ForegroundColor Red }
+}
