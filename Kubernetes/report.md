@@ -81,7 +81,81 @@ sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-a
 
 ## Создание приложения
 
+* В качестве испытуемого у нас будет небольшое веб-приложение на Flask, которое будет выводить текущее время и приветсвенное предложение:
 
+```
+from flask import Flask
+from datetime import datetime
+
+app = Flask(__name__)
+
+@app.route('/')
+def hello_kubernetes():
+    now = datetime.now()
+    kubernetes_ascii = """
+<pre>
+              .-/+oossssoo+/-.              
+          `:+ssssssssssssssssss+:`          
+        -+ssssssssssssssssssyyssss+-        
+      .ossssssssssssssssssdMMMNysssso.      
+     /ssssssssssshdmmNNmmyNMMMMhssssss/     
+   +ssssssssshmydMMMMMMMNddddyssssssss+     
+  /sssssssshNMMMyhhyyyyhmNMMMNhssssssss/    
+ .ssssssssdMMMNhsssssssssshNMMMdssssssss.   
+ +sssshhhyNMMNyssssssssssssyNMMMysssssss+   
+ ossyNMMMNyMMhsssssssssssssshmmmhssssssso   
+ ossyNMMMNyMMhsssssssssssssshmmmhssssssso   
+ +sssshhhyNMMNyssssssssssssyNMMMysssssss+   
+ .ssssssssdMMMNhsssssssssshNMMMdssssssss.   
+  /sssssssshNMMMyhhyyyyhdNMMMNhssssssss/    
+   +sssssssssdmydMMMMMMMMddddyssssssss+     
+     /ssssssssssshdmNNNNmyNMMMMhssssss/     
+      .ossssssssssssssssssdMMMNysssso.      
+        -+sssssssssssssssssyyyssss+-        
+          `:+ssssssssssssssssss+:`          
+              .-/+oossssoo+/-.
+</pre>
+"""
+    return f"""
+    <h1>Hello, It's Kubernetes</h1>
+    <p>Current time: {now.strftime('%Y-%m-%d %H:%M:%S')}</p>
+    {kubernetes_ascii}
+    """
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
+
+```
+
+* Также добавим файл со всеми необходимыми зависимостями. Они нам понадобятся на этапе создания образа:
+
+```
+#requirements.txt
+Flask==2.0.1
+Werkzeug==2.0.3
+```
+
+* Dockerfile:
+
+```
+#Dockerfile
+FROM python:3.9-slim
+
+WORKDIR /app
+
+COPY requirements.txt .
+COPY python-app.py .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+CMD ["python", "python-app.py"] 
+```
+
+* Собираем наш образ:
+
+```
+sudo docker build -t python-flask-app:1.0 .
+```
 
 ## Запуск кластера
 
