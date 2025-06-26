@@ -63,12 +63,8 @@ POD - это наименьшая и базовая единица развер�
 
 ```
 sudo curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-
 chmod +x ./kubectl
-
 sudo mv ./kubectl /usr/local/bin/kubectl
-
-kubectl version --client
 ```
 
 ![image](https://github.com/user-attachments/assets/1a0db47f-c1b0-465b-8123-ade2f0638df5)
