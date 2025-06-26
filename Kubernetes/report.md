@@ -6,7 +6,6 @@
 - [Создание приложения](#создание-приложения)
 - [Запуск кластера](#запуск-кластера)
 - [Тестируем](#тестируем)
-- ["BAD PRACTICES" в работе с контейнерами]("bad-practices"-в-работе-с-контейнерами)
 - [Выводы](#выводы)
 
 ## Задание: 
@@ -158,5 +157,132 @@ sudo docker build -t python-flask-app:1.0 .
 ```
 
 ## Запуск кластера
+
+* Запускаем наш кластер:
+
+```
+minikube start driver=docker
+```
+
+![image](https://github.com/user-attachments/assets/c2674b6a-0046-4f76-95e7-86c657d9eea3)
+
+* Добавим наш образ в minikube:
+
+```
+minikube image load python-flask-app:1.0
+```
+
+* Далее создадим `deployment.yaml`, который будет управлять запуском нашего приложения:
+
+```
+# Используем API для управления Deployment
+apiVersion: apps/v1
+
+# Тип создаваемого объекта — Deployment
+kind: Deployment
+
+metadata:
+  # Имя Deployment
+  name: python-flask-app
+
+spec:
+  # Количество реплик приложения
+  replicas: 3
+
+  # Селектор для выбора подов с нужными метками
+  selector:
+    matchLabels:
+      app: python-flask-app
+
+  # Шаблон пода, который будет создан
+  template:
+    metadata:
+      labels:
+        app: python-flask-app
+    spec:
+      containers:
+        - name: python-flask-app
+          # Используем локально загруженный Docker-образ
+          image: python-flask-app:1.0
+          # Открываем порт для Flask-приложения
+          ports:
+            - containerPort: 5000
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
+```
+
+* Для доступа к нашему приложению добавим `service.yaml`:
+
+```
+# API-версия для создания Service
+apiVersion: v1
+
+# Тип ресурса — Service
+kind: Service
+
+metadata:
+  # Имя Service
+  name: python-flask-app
+
+spec:
+  # Связываем Service с подами по метке
+  selector:
+    app: python-flask-app
+
+  # Настройка портов: внешний и целевой
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
+
+  # Тип Service — внешний балансировщик
+  type: LoadBalancer
+```
+
+* Применим нашу конфигурацию к кластеру:
+
+```
+kubectl apply -f deployment.yaml
+kubectl apply -f service.yaml
+```
+
+* Как мы видим Kubernetes поднял 3 пода как мы и прописали в конфигурации.
+
+![image](https://github.com/user-attachments/assets/d85ea1a0-fc53-4280-8b40-98064e844283)
+
+## Тестируем
+
+* Получим URL сервиса командой:
+
+```
+minikube service python-flask-app --url ---> http://192.168.49.2:32225
+```
+
+![image](https://github.com/user-attachments/assets/51bff1cf-2cde-412d-9b34-b12727b1599c)
+
+
+* Успех!
+
+## Выводы
+
+1. Получены базовые знания об архитектуре Kubernetes, включая роли компонентов Master Node (API Server, Scheduler, Controller Manager, etcd) и Worker Node (kubelet, container runtime, kube-proxy).
+   
+2. Успешно установлены и настроены Minikube и kubectl, что позволило развернуть локальный кластер Kubernetes на своём компьютере. Это важный навык для тестирования и локальной разработки без необходимости использования облачной инфраструктуры.
+
+3. Было создано простое веб-приложение на Flask, собран Docker-образ, загружен в кластер и развернут с помощью Kubernetes-ресурсов: Deployment и Service.
+
+4. Написаны и применены манифесты deployment.yaml и service.yaml. Это ключевой способ управления приложениями в Kubernetes.
+
+5. Использование сервиса LoadBalancer в Minikube позволило протестировать внешний доступ к приложению. Освоена команда minikube service для локальной отладки. 
+
+
+
+
+
 
 
