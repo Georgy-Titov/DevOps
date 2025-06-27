@@ -18,8 +18,9 @@
 **Prometheus** - это система мониторинга с открытым исходным кодом, которая широко используется для мониторинга Kubernetes-кластеров и других
 распределенных систем.
 
-![image](https://github.com/user-attachments/assets/30ed5409-4723-44ff-95bd-ccfdafed14aa)
+![image](https://github.com/user-attachments/assets/26d2a7e4-639b-4751-9f0d-043a211f45cd)
 
 **Grafana** - это инструмент визуализации и анализа данных, который используется для мониторинга системы, приложений и инфраструктуры.
 
-![image](https://github.com/user-attachments/assets/4cc4c65f-4447-40e2-8a70-0f7c48f31cf1)
+![image](https://github.com/user-attachments/assets/7641968a-2537-41b8-aa1e-785af3728255)
+
