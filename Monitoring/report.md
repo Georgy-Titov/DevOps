@@ -36,5 +36,45 @@
 * Сначала добавим пару строк в коде нашего Flask-приложения, а именно:
 
 ```
+# Эта библиотека автоматически добавляет HTTP endpoint по адресу /metrics (его можно изменить, если нужно). 
+from prometheus_flask_exporter import PrometheusMetrics
+
+app = Flask(__name__)
+metrics = PrometheusMetrics(app)
+```
+
+* Также обновляем наш файл requirements.txr:
 
 ```
+Flask==2.0.1
+Werkzeug==2.0.3
+prometheus-flask-exporter==0.22.4
+```
+
+* Добавляем аннотацию в deployment.yaml:
+
+```
+annotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/port: "5000"
+```
+
+* И собираем новый образ нашего приложения:
+
+```
+docker build -t python-flask-app:2.0 .
+```
+
+* Сам образ добавляем в minikube:
+
+```
+minikube image load python-flask-app:2.0
+```
+
+* Это все нам надо, чтобы после того как мы установим Prometheus, он мог тянуть метрики не только с нашего кластера, но и самого приложения.
+
+## Установка инструментов
+
+
+
+
