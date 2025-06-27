@@ -75,6 +75,20 @@ minikube image load python-flask-app:2.0
 
 * Это все нам надо, чтобы после того как мы установим Prometheus, он мог тянуть метрики не только с нашего кластера, но и самого приложения.
 
+* Также давайте почистим базу etcd нашего кластера:
+
+```
+# Проверяем статус minikube
+minikube starus
+
+# Если не запущен, то запускаем
+# minikube start
+
+# Далее выполняем
+kubectl delete deployment python-flask-app
+kubectl delete service python-flask-app
+```
+
 ## Установка инструментов
 
 
