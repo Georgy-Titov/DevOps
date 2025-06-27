@@ -89,6 +89,9 @@ kubectl delete deployment python-flask-app
 kubectl delete service python-flask-app
 ```
 
+![image](https://github.com/user-attachments/assets/f8af2bd0-651f-477e-8081-a71185fb26a5)
+
+
 ## Установка инструментов
 
 * Начнем с установки Helm - пакетного менеджера для Kubernetes. Если проводить аналогии: Helm для K8s - apt для Ubuntu - pip для Python.
