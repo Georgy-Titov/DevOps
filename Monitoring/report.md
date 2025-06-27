@@ -70,7 +70,7 @@ docker build -t python-flask-app:2.0 .
 ```
 minikube image load python-flask-app:2.0
 
-# Не забудьте также поменяnm образ приложения в deployment.yaml
+# Не забудьте также поменять образ приложения в deployment.yaml
 ```
 
 * Это все нам надо, чтобы после того как мы установим Prometheus, он мог тянуть метрики не только с нашего кластера, но и самого приложения.
