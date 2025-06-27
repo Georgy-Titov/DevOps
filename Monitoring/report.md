@@ -89,6 +89,21 @@ kubectl delete deployment python-flask-app
 kubectl delete service python-flask-app
 ```
 
+* Далее запустим и проверим работу новой версии приложеия:
+
+```
+# Запускаем
+kubectl apply -f deployment.yaml
+kubectl apply -f service.yaml
+
+# Проверяем что все запущено
+kubectl get pods
+kubectl get svc
+
+# Открываем приложение в браузере
+minikube service python-flask-app
+```
+
 ![image](https://github.com/user-attachments/assets/f8af2bd0-651f-477e-8081-a71185fb26a5)
 
 
