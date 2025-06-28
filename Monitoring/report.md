@@ -118,6 +118,7 @@ kubectl delete service python-flask-app
 # Запускаем
 kubectl apply -f deployment.yaml
 kubectl apply -f service.yaml
+kubectl apply -f serviceMonitor.yaml
 
 # Проверяем что все запущено
 kubectl get pods
