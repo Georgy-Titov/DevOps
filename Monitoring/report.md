@@ -189,3 +189,4 @@ minikube service monitoring-kube-prometheus-prometheus -n monitoring --url
 
 ## Выводы
 
+В ходе лабораторной работы была успешно реализована система мониторинга приложения на базе Flask, развернутого в кластере Kubernetes с использованием Prometheus и Grafana.
