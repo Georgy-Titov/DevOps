@@ -42,7 +42,7 @@ app = Flask(__name__)
 metrics = PrometheusMetrics(app)
 ```
 
-* Также обновляем наш файл requirements.txt:
+* Также обновляем наш файл `requirements.txt`:
 
 ```
 Flask==2.0.1
@@ -50,13 +50,37 @@ Werkzeug==2.0.3
 prometheus-flask-exporter==0.22.4
 ```
 
-* Добавляем аннотацию в deployment.yaml:
+* Добавляем аннотацию в `deployment.yaml`:
 
 ```
 annotations:
   prometheus.io/scrape: "true"
   prometheus.io/port: "5000"
+  prometheus.io/path: "/metrics"
 ```
+
+* Также создадим еще одни сервис `serviceMonitor.yaml`:
+
+```
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: python-flask-app-monitor
+  namespace: monitoring
+  labels:
+    release: monitoring
+spec:
+  namespaceSelector:
+    any: true
+  selector:
+    matchLabels:
+      app: python-flask-app
+  endpoints:
+    - port: http
+      targetPort: 5000
+      path: /metrics
+      interval: 15s
+``` 
 
 * И собираем новый образ нашего приложения:
 
@@ -145,3 +169,12 @@ kubectl port-forward svc/monitoring-grafana 3000:80 -n monitoring
 ![image](https://github.com/user-attachments/assets/01e34b8e-0dc1-47d1-b846-c9d63e46a6fd)
 
 ## Сбор метрик
+
+* Проверим что Prometheus собирает метрики:
+
+```
+
+```
+
+![image](https://github.com/user-attachments/assets/5c162402-d56f-4e87-ae6d-c3dc5a2f81db)
+
