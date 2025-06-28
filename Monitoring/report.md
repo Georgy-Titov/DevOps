@@ -174,8 +174,18 @@ kubectl port-forward svc/monitoring-grafana 3000:80 -n monitoring
 * Проверим что Prometheus собирает метрики:
 
 ```
-
+minikube service monitoring-kube-prometheus-prometheus -n monitoring --url
 ```
 
 ![image](https://github.com/user-attachments/assets/5c162402-d56f-4e87-ae6d-c3dc5a2f81db)
+
+* Далее возвращаемся в Grafana и создаем там новый дашборд (возбмем уже готовый с id 1860). Он визуализирует общее состояние кластера Kubernetes, используя метрики от Prometheus + node-exporter + kube-state-metrics и др:
+
+![image](https://github.com/user-attachments/assets/e95b34bc-4c35-4046-9fd7-0c988c8334fd)
+
+* Теперь пробуем сделать свой дашборд для отображения метрик нашего приложения:
+
+![image](https://github.com/user-attachments/assets/b7c4c814-7f17-4193-a762-49055be42412)
+
+## Выводы
 
