@@ -4,8 +4,7 @@
 - [Теория](#теория)
 - [Предустановка](#предустановка)
 - [Установка инструментов](#установка-инструментов)
-- [Запуск кластера](#запуск-кластера)
-- [Тестируем](#тестируем)
+- [Сбор метрик](#сбор-метрик)
 - [Выводы](#выводы)
 
 ## Задание: 
@@ -119,4 +118,30 @@ sudo apt-get update
 sudo apt-get install helm
 ```
 
+* Далее выполняем следующие команды:
 
+```
+# Добавляем репозииторий Helm-чартов с готовыми шаблонами наших инструметов
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+
+# Обнволяем каталог
+helm repo update
+
+# Создаем отдельный namespace для ресурсов мониторинга
+kubectl create namespace monitoring
+
+# Устанавливаем сразу и Prometheus, и Grafana, и Alertmanager, и нужные ServiceMonitor'ы для сбора метрик из Kubernetes. 
+helm install monitoring prometheus-community/kube-prometheus-stack --namespace monitoring
+
+# Достаем пароль для администатора Grafana 
+kubectl get secret --namespace monitoring monitoring-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+
+# Пробрасываем порт
+kubectl port-forward svc/monitoring-grafana 3000:80 -n monitoring
+```
+
+* Если все прошло успешно, заходим в Grafana:
+
+![image](https://github.com/user-attachments/assets/01e34b8e-0dc1-47d1-b846-c9d63e46a6fd)
+
+## Сбор метрик
