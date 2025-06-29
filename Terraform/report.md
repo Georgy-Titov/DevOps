@@ -169,3 +169,6 @@ output "external_ip" {
 
 
 ![Снимок экрана от 2025-06-30 01-26-28](https://github.com/user-attachments/assets/4e8fbc8e-d5bf-44c5-abf4-e6bf7026f09e)
+
+![image](https://github.com/user-attachments/assets/e00386cc-8ebd-49c5-8f59-f67494217af2)
+
