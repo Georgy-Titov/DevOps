@@ -77,7 +77,7 @@ yc init
 # Выбрать каталог (cloud)
 # Выбрать папку (folder)
 
-# cloud_id и folder_id можно посмотреть в веб-интерфейса облака, либо получить при помощи слудющмх команд:
+# cloud_id и folder_id можно посмотреть в веб-интерфейсе облака, либо получить при помощи слуедющмх команд:
 # yc resource-manager cloud list
 # yc resource-manager folder list
 ```
