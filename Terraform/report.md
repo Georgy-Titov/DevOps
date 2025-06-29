@@ -56,6 +56,11 @@
  * Terraform - [HashiCorp](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli?in=terraform%2Faws-get-started) или [инструкция из интернета](https://timeweb.cloud/tutorials/cloud/ustanovka-terraform)
  * CLI [Yandex Cloud](https://yandex.cloud/ru/docs/cli/operations/install-cli)
 
+![image](https://github.com/user-attachments/assets/31c2e347-bc25-4f4e-998c-717552d218e5)
+
+
 * Также отметим что для выполнения работы потребуетсяс создать аккаунт в Yandex Cloud. Также после создания понадобиться завести платежный аккаунт для доступа к ресурсам провайдера. При создании первого платежного аккаутна вам выдается грант в 4000 руб. Это достаточно для нашей работы.
 
-* 
+* Также полезна будет следующая документация:
+ * [Yandex Cloud Terraform](https://yandex.cloud/ru/docs/tutorials/infrastructure-management/terraform-quickstart#linux_1)
+ * [Terraform Providers](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs)
