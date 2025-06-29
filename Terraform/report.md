@@ -62,5 +62,5 @@
 * Также отметим что для выполнения работы потребуетсяс создать аккаунт в Yandex Cloud. Также после создания понадобиться завести платежный аккаунт для доступа к ресурсам провайдера. При создании первого платежного аккаутна вам выдается грант в 4000 руб. Этого достаточно для нашей работы.
 
 * Также полезна будет следующая документация:
- * [Yandex Cloud Terraform](https://yandex.cloud/ru/docs/tutorials/infrastructure-management/terraform-quickstart#linux_1)
- * [Terraform Providers](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs)
+  * [Yandex Cloud Terraform](https://yandex.cloud/ru/docs/tutorials/infrastructure-management/terraform-quickstart#linux_1)
+  * [Terraform Providers](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs)
