@@ -3,7 +3,7 @@
 - [Задание](#задание)
 - [Теория](#теория)
 - [Установка инструментов](#установка-инструментов)
-- [Сбор метрик](#сбор-метрик)
+- [Конфигурация Terraform и Yandex Cloud](#конфигурация-terraform-и-yandex-cloud)
 - [Выводы](#выводы)
 
 ## Задание: 
@@ -64,3 +64,22 @@
 * Также полезна будет следующая документация:
   * [Yandex Cloud Terraform](https://yandex.cloud/ru/docs/tutorials/infrastructure-management/terraform-quickstart#linux_1)
   * [Terraform Providers](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs)
+
+## Конфигурация Terraform и Yandex Cloud
+
+* После того как все установили, открываем терминал и проводим начальную настройку CLI:
+
+```
+yc init
+
+# CLI задаст вопросы:
+# Войти через браузер и ввести OAuth токен (он откроется сам)
+# Выбрать каталог (cloud)
+# Выбрать папку (folder)
+
+# cloud_id и folder_id можно посмотреть в веб-интерфейса облака, либо получить при помощи слудющмх команд:
+# yc resource-manager cloud list
+# yc resource-manager folder list
+```
+
+* 
