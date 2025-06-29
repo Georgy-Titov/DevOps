@@ -188,10 +188,30 @@ systemctl enable docker
 docker run -d --name nginx-container -p 80:80 nginx
 ```
 
+* Далее инииализируемся и создаем ресурсы:
+
+```
+terraform init
+terraform apply
+```
+
+* Проверяем, что все поднялось:
+  
 ![Снимок экрана от 2025-06-30 01-16-36](https://github.com/user-attachments/assets/276b503a-8c1b-4536-a16f-38845611b912)
 
+* Подключаемся по ssh на VM.
 
 ![Снимок экрана от 2025-06-30 01-26-28](https://github.com/user-attachments/assets/4e8fbc8e-d5bf-44c5-abf4-e6bf7026f09e)
 
+* Проверяем работу веб-сервера.
+
 ![image](https://github.com/user-attachments/assets/e00386cc-8ebd-49c5-8f59-f67494217af2)
+
+* Смотрим поднятые ресурсы в Yandex Cloud.
+
+* Как видим все работает.
+
+## Выводы
+
+Использование Terraform позволило описать всю инфраструктуру в виде кода, упростить процесс её создания и обеспечить повторяемость развёртывания. Работа с Yandex Cloud через IaC оказалась удобной и наглядной, а автоматизация развертывания Nginx с помощью Docker продемонстрировала гибкость и преимущества такого подхода.
 
