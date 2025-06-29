@@ -82,4 +82,90 @@ yc init
 # yc resource-manager folder list
 ```
 
-* 
+```
+#!/bin/bash
+# Обновление пакетов
+apt-get update -y
+apt-get upgrade -y
+
+# Установка Docker
+apt-get install -y docker.io
+
+# Запуск Docker, если он не запущен
+systemctl start docker
+systemctl enable docker
+
+# Скачивание и запуск Nginx в Docker
+docker run -d --name nginx-container -p 80:80 nginx
+```
+
+```
+terraform {
+  required_providers {
+    yandex = {
+      source = "terraform-registry.storage.yandexcloud.net/yandex-cloud/yandex"
+    }
+  }
+  required_version = ">= 0.13"
+}
+
+provider "yandex" {
+  zone                     = "ru-central1-a"
+  cloud_id                 = "b1gnl0qf3ceu8p4p0nfe"
+  folder_id                = "b1gqr9fn97hptq8tr5e9"
+  service_account_key_file = "key.json"
+}
+
+resource "yandex_vpc_network" "test-vpc" {
+  name = "terraform-vpc"
+}
+
+resource "yandex_vpc_subnet" "test-subnet" {
+  v4_cidr_blocks = ["10.2.0.0/16"]
+  network_id     = yandex_vpc_network.test-vpc.id
+}
+
+resource "yandex_vpc_address" "test-addr" {
+  name = "exampleAddress"
+
+  external_ipv4_address {
+    zone_id = "ru-central1-a"
+  }
+}
+
+resource "yandex_compute_instance" "test-comp-inst" {
+  name        = "test-comp-inst"
+  platform_id = "standard-v3"
+
+  resources {
+    cores  = 2
+    memory = 2
+  }
+
+  boot_disk {
+    initialize_params {
+      image_id = "fd82nvvtllmimo92uoul"
+    }
+  }
+
+  network_interface {
+    subnet_id = yandex_vpc_subnet.test-subnet.id
+    nat = true
+        nat_ip_address = yandex_vpc_address.test-addr.external_ipv4_address.0.address
+  }
+
+  metadata = {
+    ssh-keys = "ubuntu:${file("/home/georgy/.ssh/id_rsa.pub")}"
+    user-data = "${file("init.sh")}"
+  }
+}
+
+output "external_ip" {
+    value = yandex_vpc_address.test-addr.external_ipv4_address.0.address
+}
+```
+
+![Снимок экрана от 2025-06-30 01-16-36](https://github.com/user-attachments/assets/276b503a-8c1b-4536-a16f-38845611b912)
+
+
+![Снимок экрана от 2025-06-30 01-26-28](https://github.com/user-attachments/assets/4e8fbc8e-d5bf-44c5-abf4-e6bf7026f09e)
