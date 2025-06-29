@@ -82,22 +82,7 @@ yc init
 # yc resource-manager folder list
 ```
 
-```
-#!/bin/bash
-# Обновление пакетов
-apt-get update -y
-apt-get upgrade -y
-
-# Установка Docker
-apt-get install -y docker.io
-
-# Запуск Docker, если он не запущен
-systemctl start docker
-systemctl enable docker
-
-# Скачивание и запуск Nginx в Docker
-docker run -d --name nginx-container -p 80:80 nginx
-```
+* После того как мы провели настройку CLI, перейдем к написанию `main.tf` - основной файл конфигурации (то что мы хотим получить):
 
 ```
 terraform {
@@ -163,6 +148,44 @@ resource "yandex_compute_instance" "test-comp-inst" {
 output "external_ip" {
     value = yandex_vpc_address.test-addr.external_ipv4_address.0.address
 }
+```
+
+* Вкратце разберем основные моменты:
+  * Блок `terraform` указывает откуда брать провайдера и какую использовать версию Terraform;
+  * Блок `provide` задает настройки для подключения к Yandex Cloud;
+  * Ресурс `yandex_vpc_network` создает виртуальную сеть (VPC) в облаке;
+  * Ресурс `yandex_vpc_subnet` создает подсеть внутри сети, которые мы объявили выше;
+  * Ресурс `yandex_vpc_address` создает внешний IP-адрес для нашей будущей VM;
+  * Ресурс `yandex_compute_instence` создает виртуальную машину;
+  * Блок `output` нужен для получения внешнего IP-адреса после создания ресурса.
+ 
+ * Далее про команды, которые были использованы в процессе написания конфигурационного файла:
+
+```
+# Запрашиваем список стандартных (готовых) образов виртуальных машин в Yandex Cloud. В данном примере ищем только образы Ubuntu
+yc compute image list --folder-id standard-images | grep ubuntu
+
+# Генерируем ssh-ключи для подключения к VM. Далее в конфиге передаем публичный ключ в metadata {ssh-keys = }
+ssh-keygen -t rsa -b 4096 -f ./id_rsa
+```
+
+* Также мы передаем в `metadata {user-data}` мы передаем `"${file("init.sh")}"` - это скрипт, который будем исполнен при первом запуске VM. В скрипте мы устанавливаем Docker и запускаем контейнер с Nginx:
+
+```
+#!/bin/bash
+# Обновление пакетов
+apt-get update -y
+apt-get upgrade -y
+
+# Установка Docker
+apt-get install -y docker.io
+
+# Запуск Docker, если он не запущен
+systemctl start docker
+systemctl enable docker
+
+# Скачивание и запуск Nginx в Docker
+docker run -d --name nginx-container -p 80:80 nginx
 ```
 
 ![Снимок экрана от 2025-06-30 01-16-36](https://github.com/user-attachments/assets/276b503a-8c1b-4536-a16f-38845611b912)
