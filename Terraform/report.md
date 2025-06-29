@@ -54,7 +54,7 @@
 * Нам понадобиться установить Terraform и Yandex Cloud CLI. Подробно останавливаться на устанвоке каждого из инструментов не будем, поэтому я прикреплю инструкции, по которым вы сможете выбрать удобный для себя способ установки:
 
  * Terraform - [HashiCorp](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli?in=terraform%2Faws-get-started) или [инструкция из интернета](https://timeweb.cloud/tutorials/cloud/ustanovka-terraform)
- * CLI [Yandex Cloud](https://yandex.cloud/ru/docs/cli/operations/install-cli)
+ * CLI - [Yandex Cloud](https://yandex.cloud/ru/docs/cli/operations/install-cli)
 
 ![image](https://github.com/user-attachments/assets/31c2e347-bc25-4f4e-998c-717552d218e5)
 
