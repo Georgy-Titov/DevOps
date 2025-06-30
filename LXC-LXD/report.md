@@ -65,7 +65,7 @@ Would you like stale cached images to be updated automatically? (yes/no) [defaul
 lxc launch <нужный образ> <имя контейнера>
 # В нашем случае -->  lxc launch ubuntu:22.04 ubuntu-nginx
 
-# Посмотреть доступны образы можно при помощи команды:
+# Посмотреть доступные образы можно при помощи команды:
 lxc image list images:
 ```
 > Если во время выполнения команд у вас появляются ошибки типа "permission denied" - добавьте вашего пользоватся в группу lxd. `sudo usermod -aG lxd $USER`.
