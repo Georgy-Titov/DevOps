@@ -100,7 +100,7 @@ systemctl start nginx
 * Далее при помощи `proxy` пробрасываем порт контейнера на локальный хост. Теперь любые запросы (0.0.0.0:8080) на порт 8080 будут перенаправляться в контейнер на адрес 127.0.0.1:80.
 
 ```
-
+lxc config device add webserver myport80 proxy listen=tcp:0.0.0.0:8080 connect=tcp:127.0.0.1:80
 ```
 
 ![image](https://github.com/user-attachments/assets/cf266560-637d-4a9b-b08e-7b4afde7f64c)
