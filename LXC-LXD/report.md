@@ -43,14 +43,27 @@ sudo lxd init
 
 ```
 # Конфигурация:
-
-
+Would you like to use LXD clustering? (yes/no) [default=no]: no
+Do you want to configure a new storage pool? (yes/no) [default=yes]: yes
+Name of the new storage pool [default=default]: lxc-lxd-lab-pool
+Name of the storage backend to use (powerflex, zfs, btrfs, ceph, dir, lvm) [default=zfs]: zfs
+Create a new ZFS pool? (yes/no) [default=yes]: yes
+Would you like to use an existing empty block device (e.g. a disk or partition)? (yes/no) [default=no]: no
+Size in GiB of the new loop device (1GiB minimum) [default=30GiB]: 5GiB
+Would you like to connect to a MAAS server? (yes/no) [default=no]: no
+Would you like to create a new local network bridge? (yes/no) [default=yes]: yes
+What should the new bridge be called? [default=lxdbr0]: 
+What IPv4 address should be used? (CIDR subnet notation, “auto” or “none”) [default=auto]: 
+What IPv6 address should be used? (CIDR subnet notation, “auto” or “none”) [default=auto]: 
+Would you like the LXD server to be available over the network? (yes/no) [default=no]: no
+Would you like stale cached images to be updated automatically? (yes/no) [default=yes]: yes
 ```
 
 * Далее создадим и запустим котнейнер при помощи команды:
 
 ```
-lxc launch images:<нужный образ> <имя контейнера>
+sudo lxc launch <нужный образ> <имя контейнера>
+# В нашем случае -->  sudo lxc launch ubuntu:22.04 ubuntu-nginx
 
 # Посмотреть доступны образы можно при помощи команды:
 lxc image list images:
