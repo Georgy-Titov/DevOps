@@ -86,9 +86,22 @@ lxc list
 * Подключаемся к контейнеру и устанваливаем Nginx:
 
 ```
+lxc shell webserver
+
+apt update
+apt install nginx -y
+systemctl start nginx
 ```
 
+* Проверяем что Nginx устанвился сначала внутри контейнера - `curl http://127.0.0.1`
+
 ![image](https://github.com/user-attachments/assets/14102838-e0c5-450b-8be2-e268135cea37)
+
+* Далее при помощи `proxy` пробрасываем порт контейнера на локальный хост. Теперь любые запросы (0.0.0.0:8080) на порт 8080 будут перенаправляться в контейнер на адрес 127.0.0.1:80.
+
+```
+
+```
 
 ![image](https://github.com/user-attachments/assets/cf266560-637d-4a9b-b08e-7b4afde7f64c)
 
