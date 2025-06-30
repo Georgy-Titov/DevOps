@@ -94,6 +94,7 @@ lxc list
 
 ![image](https://github.com/user-attachments/assets/e47beb15-ed95-4ef3-9d13-c749a973f961)
 
+![image](https://github.com/user-attachments/assets/ac38ea6e-6381-41ea-9a7d-667570e3d261)
 
 
 
