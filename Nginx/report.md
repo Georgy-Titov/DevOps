@@ -147,7 +147,7 @@ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 ![image](https://github.com/user-attachments/assets/4d783f5b-1268-409a-a945-4c58da02c695)
 
 * Проверяем результат работы:
-* 
+
 ![image](https://github.com/user-attachments/assets/c4b0be10-4475-416b-bbce-027e311d20af)
 
 ## Выводы
