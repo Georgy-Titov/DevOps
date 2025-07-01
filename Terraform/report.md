@@ -169,7 +169,7 @@ yc compute image list --folder-id standard-images | grep ubuntu
 ssh-keygen -t rsa -b 4096 -f ./id_rsa
 ```
 
-* Также мы передаем в `metadata {user-data}` мы передаем `"${file("init.sh")}"` - это скрипт, который будем исполнен при первом запуске VM. В скрипте мы устанавливаем Docker и запускаем контейнер с Nginx:
+* Также в `metadata {user-data}` мы передаем `"${file("init.sh")}"` - это скрипт, который будем исполнен при первом запуске VM. В скрипте мы устанавливаем Docker и запускаем контейнер с Nginx:
 
 ```
 #!/bin/bash
