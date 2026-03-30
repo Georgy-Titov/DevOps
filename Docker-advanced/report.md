@@ -36,9 +36,9 @@
 ```
 ~/Documents/DevOps-labs/Docker-lab1$ tree -L 1
 .
-├── config.json              # базовая файловая система контейнера (Alpine Linux)
-├── rootfs                   # скрипт запуска контейнера
-└── run-mini-container.py    # конфигурационный файл контейнера
+├── config.json              # конфигурационный файл контейнера
+├── rootfs                   # базовая файловая система контейнера (Alpine Linux)
+└── run-mini-container.py    # скрипт запуска контейнера
 ```
 
 После был скачан минимальный образ файловой системы [Alpine Linux](https://dl-cdn.alpinelinux.org/alpine/latest-stable/releases/x86_64/) (rootfs). Для лабораторной работы была использована актуальная стабильная версия Alpine Linux 3.23.3.
