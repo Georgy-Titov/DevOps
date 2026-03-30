@@ -15,14 +15,14 @@
 1. Должна конфигурироваться config.json по спецификации OCI
 2. Для каждого контейнера при его запуске должны создаваться новые namespaces:
    * PID namespace;
-  * Mount namespace;
-  * UTS namespace, внутри которого hostname устанавливается в значение из поля hostname конфига.
+    * Mount namespace;
+    * UTS namespace, внутри которого hostname устанавливается в значение из поля hostname конфига.
 3. Для каждого контейнера с идентификатором <id> должна создаваться директория: /var/lib/{имя-вашей-утилиты}/{id}
 4. В качестве rootfs использовать Alpine, но chroot делать на overlayfs:
-  * lowerdir — базовый rootfs (Alpine)
-  * upperdir — /var/lib/{имя-утилиты}/{id}/upper
-  * workdir — /var/lib/{имя-утилиты}/{id}/work
-  * merged - /var/lib/{имя-утилиты}/{id}/merged
+    * lowerdir — базовый rootfs (Alpine)
+    * upperdir — /var/lib/{имя-утилиты}/{id}/upper
+    * workdir — /var/lib/{имя-утилиты}/{id}/work
+    * merged - /var/lib/{имя-утилиты}/{id}/merged
 5. Запускаемая команда становится PID=1 внутри контейнера и утилита ждёт её завершения (foreground)
 
 Опционально:
