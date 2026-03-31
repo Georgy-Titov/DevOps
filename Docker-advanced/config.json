@@ -1,0 +1,62 @@
+{
+  "ociVersion": "1.0.2",
+  "hostname": "mini-container",
+  "process": {
+    "terminal": true,
+    "user": {
+      "uid": 0,
+      "gid": 0
+    },
+    "args": [
+    "/bin/sh",
+    "-c",
+    "echo '<<mini-container started successfully!>>'; exec /bin/sh -i"
+    ],
+    "env": [
+      "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+    ],
+    "cwd": "/"
+  },
+  "root": {
+    "path": "rootfs",
+    "readonly": false
+  },
+  "mounts": [
+    {
+      "destination": "/proc",
+      "type": "proc",
+      "source": "proc"
+    },
+    {
+      "destination": "/dev",
+      "type": "tmpfs",
+      "source": "tmpfs"
+    },
+    {
+      "destination": "/sys",
+      "type": "sysfs",
+      "source": "sysfs"
+    }
+  ],
+  "linux": {
+    "namespaces": [
+      {
+        "type": "pid"
+      },
+      {
+        "type": "mount"
+      },
+      {
+        "type": "uts"
+      }
+    ],
+    "resources": {
+      "memory": {
+        "limit": 268435456
+      },
+      "cpu": {
+        "shares": 1024
+      }
+    }
+  }
+}
