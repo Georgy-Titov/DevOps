@@ -4,8 +4,7 @@
 - [Подготовка окружения](#подготовка-окружения)
 - [Файл конфигурации](#файл-конфигурации)
 - [Скрипт](#Скрипт)
-- [Запуск кластера](#запуск-кластера)
-- [Тестируем](#тестируем)
+- [Проверка работоспосбности](#проверка-работоспосбности)
 - [Выводы](#выводы)
 
 ## Задание: 
@@ -215,14 +214,151 @@ tar -xzf alpine-minirootfs-3.23.3-x86_64.tar.gz -C rootfs
 ```
 
 Ограничение ресурсов (cgroups).
-
 ## Скрипт
 
 Рассмотрим ключевые функции скрипта `run-mini-container.py`. Скрипт реализует базовый контейнерный runtime и выполняет:
-    * создание overlayfs
-    * создание namespaces
-    * chroot
-    * монтирование файловых систем
-    * запуск процесса контейнера
 
-    
+* создание overlayfs
+* создание namespaces
+* chroot
+* монтирование файловых систем
+* запуск процесса контейнера
+
+Функция `load_config()` отвечает за загрузку конфигурационного файла контейнера.
+
+```
+def load_config():
+    log_info("Загрузка конфигурации config.json")
+    with open("config.json") as f:
+        return json.load(f)
+```
+
+Функция `create_container_dirs()` создаёт структуру контейнера.
+
+```
+def create_container_dirs(container_id):
+  container_path = os.path.join(BASE_DIR, container_id)
+
+  ...
+
+  os.makedirs(upper, exist_ok=True)
+  os.makedirs(work, exist_ok=True)
+  os.makedirs(merged, exist_ok=True)
+```
+
+Функция `setup_overlay()` создаёт файловую систему контейнера.
+
+```
+def setup_overlay(container_path, lowerdir):
+  upperdir = os.path.join(container_path, "upper")
+  workdir = os.path.join(container_path, "work")
+  merged = os.path.join(container_path, "merged")
+
+  ...
+
+  lowerdir = os.path.abspath(lowerdir)
+
+  ...
+
+  mount_cmd = [
+    "mount",
+    "-t", "overlay",
+    "overlay",
+    "-o", f"lowerdir={lowerdir},upperdir={upperdir},workdir={workdir}",
+    merged
+]
+```
+
+Функция `mount_filesystems()` монтирует файловые системы из config.json.
+
+```
+def mount_filesystems(config):
+  mounts = config.get("mounts", [])
+
+  ...
+
+  subprocess.run([
+    "mount",
+    "-t",
+    fs_type,
+    source,
+    destination
+], check=True)
+```
+
+Функция `build_unshare_command()` формирует команду unshare.
+
+```
+def build_unshare_command(config):
+  namespaces = config["linux"]["namespaces"]
+
+  ...
+
+  if ns_type == "pid":
+    cmd.append("--pid")
+
+  # В итоге формируется команда: unshare --fork --pid --mount --uts
+```
+
+Функция `run_container()` запускает контейнер.
+
+```
+def run_container(rootfs, config)
+
+# Установка hostname:
+setup_hostname(config)
+
+# Chroot:
+os.chroot(rootfs)
+os.chdir("/")
+
+# Контейнер получает собственную файловую систему.
+# Монтирование файловых систем:
+mount_filesystems(config)
+
+# Получение команды запуска:
+cmd = config["process"]["args"]
+
+# Получение переменных окружения:
+env = build_env(config)
+
+# Запуск процесса контейнера:
+os.execvpe(cmd[0], cmd, env)
+
+# Данный процесс становится PID=1 внутри контейнера.
+```
+
+Функция `main()` управляет запуском контейнера.
+
+```
+# Проверка аргументов:
+if len(sys.argv) < 3:
+
+# Режим run:
+if command == "run":
+
+# Создание overlayfs:
+rootfs = setup_overlay(container_path, rootfs_path)
+
+# Создание namespaces:
+unshare_cmd = build_unshare_command(config)
+
+# Запуск контейнера:
+subprocess.run(
+    unshare_cmd + [
+        "python3",
+        __file__,
+        "child",
+        rootfs
+    ],
+    check=True
+)
+
+# Режим child:
+elif command == "child":
+
+#Запуск контейнера:
+run_container(rootfs, config)
+```
+
+## Проверка работоспосбности
