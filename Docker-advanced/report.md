@@ -2,8 +2,8 @@
 
 - [Задание](#задание)
 - [Подготовка окружения](#подготовка-окружения)
-- [Устанвока инструментов](#установка-инструментов)
-- [Создание приложения](#создание-приложения)
+- [Файл конфигурации](#файл-конфигурации)
+- [Скрипт](#Скрипт)
 - [Запуск кластера](#запуск-кластера)
 - [Тестируем](#тестируем)
 - [Выводы](#выводы)
@@ -50,3 +50,170 @@ wget https://dl-cdn.alpinelinux.org/alpine/latest-stable/releases/x86_64/alpine-
 mkdir rootfs
 tar -xzf alpine-minirootfs-3.23.3-x86_64.tar.gz -C rootfs
 ```
+
+<img width="424" height="317" alt="Снимок экрана 2026-03-31 в 02 53 14" src="https://github.com/user-attachments/assets/21e1dc1c-115d-468d-b9b8-fffec75a9365" />
+
+## Файл конфигурации
+
+Для настройки параметров запуска контейнера используется файл `config.json`.
+Он описывает поведение контейнера и его окружение. Формат конфигурации основан на спецификации **Open Container Initiative** ([OCI Runtime Specification](https://github.com/opencontainers/runtime-spec)).
+
+Рассмотрим ключевые блкои в файле конфигурации:
+
+```
+{
+  "ociVersion": "1.0.2",
+  "hostname": "mini-container",
+  "process": {
+    "terminal": true,
+    "user": {
+      "uid": 0,
+      "gid": 0
+    },
+    "args": [
+    "/bin/sh",
+    "-c",
+    "echo '<<mini-container started successfully!>>'; exec /bin/sh -i"
+    ],
+    "env": [
+      "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+    ],
+    "cwd": "/"
+  },
+  "root": {
+    "path": "rootfs",
+    "readonly": false
+  },
+  "mounts": [
+    {
+      "destination": "/proc",
+      "type": "proc",
+      "source": "proc"
+    },
+    {
+      "destination": "/dev",
+      "type": "tmpfs",
+      "source": "tmpfs"
+    },
+    {
+      "destination": "/sys",
+      "type": "sysfs",
+      "source": "sysfs"
+    }
+  ],
+  "linux": {
+    "namespaces": [
+      {
+        "type": "pid"
+      },
+      {
+        "type": "mount"
+      },
+      {
+        "type": "uts"
+      }
+    ],
+    "resources": {
+      "memory": {
+        "limit": 268435456
+      },
+      "cpu": {
+        "shares": 1024
+      }
+    }
+  }
+}
+```
+
+##
+
+```
+"ociVersion": "1.0.2"
+```
+
+Указывает версию спецификации OCI, используемой для описания контейнера.
+
+```
+"hostname": "mini-container"
+```
+
+Задает имя хоста внутри контейнера. Благодаря namespace UTS контейнер получает собственное имя хоста, независимое от основной системы.
+
+```
+"process": {
+  "terminal": true,      # Указывает, что контейнер запускается в интерактивном режиме с терминалом.
+  "user": {              # Указывает пользователя, от имени которого запускается контейнер.
+    "uid": 0,              В данном случае используется пользователь root (uid=0, gid=0).
+    "gid": 0               В продакшене лучше так не делать)
+  }
+```
+
+Блок `process` описывает основной процесс контейнера.
+
+```
+"args": [
+  "/bin/sh",
+  "-c",
+  "echo '<<mini-container started successfully!>>'; exec /bin/sh -i"
+]
+```
+
+Этот блок задает команду, которая будет запущена внутри контейнера. В нашем случае при старте контейнера выведется сообщение об его успешном запуске и управление перейдет в интерактивном режиме оболочке `/bin/sh`.
+
+```
+{
+  "destination": "/proc",
+  "type": "proc",
+  "source": "proc"
+}
+```
+
+Монтирует виртуальную файловую систему `/proc`, которая содержит информацию о процессах.
+
+```
+{
+  "destination": "/dev",
+  "type": "tmpfs",
+  "source": "tmpfs"
+}
+```
+
+Монтирует временную файловую систему `/dev,` содержащую устройства контейнера.
+
+```
+{
+  "destination": "/sys",
+  "type": "sysfs",
+  "source": "sysfs"
+}
+```
+
+Монтирует `/sys`, содержащую информацию о системе и ядре.
+
+
+```
+"namespaces": [
+  { "type": "pid" },      # pid	изоляция процессов
+  { "type": "mount" },    # mount	изоляция файловой системы
+  { "type": "uts" }       # uts	отдельный hostname
+]
+```
+
+Используются namespaces для изоляции контейнера.
+
+```
+"memory": {
+  "limit": 268435456
+}
+
+...
+
+"cpu": {
+  "shares": 1024
+}
+
+```
+
+Ограничение ресурсов (cgroups).
+
+## Скрипт
