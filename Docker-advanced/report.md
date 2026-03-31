@@ -219,7 +219,6 @@ tar -xzf alpine-minirootfs-3.23.3-x86_64.tar.gz -C rootfs
 ## Скрипт
 
 Рассмотрим ключевые функции скрипта `run-mini-container.py`. Скрипт реализует базовый контейнерный runtime и выполняет:
-
     * создание overlayfs
     * создание namespaces
     * chroot
