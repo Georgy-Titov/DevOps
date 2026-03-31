@@ -1,4 +1,4 @@
-# Лабораторная работа по Docker (Advanced-трек)
+<img width="499" height="89" alt="Снимок экрана 2026-03-31 в 03 59 47" src="https://github.com/user-attachments/assets/7e44357a-2b98-43ad-b606-197f38830a5b" /># Лабораторная работа по Docker (Advanced-трек)
 
 - [Задание](#задание)
 - [Подготовка окружения](#подготовка-окружения)
@@ -362,3 +362,30 @@ run_container(rootfs, config)
 ```
 
 ## Проверка работоспосбности
+
+Запустим наш "контейнер" командой `python3 run-mini-container.py run container-1`:
+
+<img width="1276" height="536" alt="image" src="https://github.com/user-attachments/assets/dd7dbd73-d90c-43d1-8d37-842f00c653e2" />
+
+Внутри контейнера основной процесс (`/bin/sh`) должен быть PID=1, так как он является init-процессом контейнера.
+
+<img width="499" height="89" alt="Снимок экрана 2026-03-31 в 03 59 47" src="https://github.com/user-attachments/assets/f86e1183-8647-4718-9408-bb24bb7eadb7" />
+
+Проверка `hostname`:
+
+<img width="131" height="61" alt="Снимок экрана 2026-03-31 в 04 07 26" src="https://github.com/user-attachments/assets/1848aa84-c6a6-49c8-8eca-291f23bfb726" />
+
+Проверка работы файловой системы:
+
+<img width="421" height="334" alt="Снимок экрана 2026-03-31 в 04 02 28" src="https://github.com/user-attachments/assets/1a996626-1dc2-41f9-89a0-b144b9807933" />
+
+Проверяем что в rootfs изменения не сохранились:
+
+<img width="440" height="247" alt="Снимок экрана 2026-03-31 в 04 02 46" src="https://github.com/user-attachments/assets/864766b8-2eef-4590-84f3-6741faf8f1b1" />
+
+А в merged изменения сохранились:
+
+<img width="430" height="363" alt="Снимок экрана 2026-03-31 в 04 03 44" src="https://github.com/user-attachments/assets/ed3dc0ee-f232-450c-a07a-15e8c4c6e6c7" />
+
+## Выводы
+
